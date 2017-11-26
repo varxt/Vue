@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="src/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <kao-chuan
+            title='gjwegd'
+            ok-value="登录"
+            @ok = "parentOk"
+        >登录</kao-chuan>
+
+        <div v-show="isLogin">我是用户名</div>
+
+
+    </div>
+
+    <script>
+
+        Vue.component('kao-chuan',{
+            props:{
+                title:{
+                    type:String,
+                    required:true //是不是必填的 不是就写 default
+                },
+                okValue:{
+                    type:String,
+                    default:'确定'
+                },
+                cancelValue:{
+                    type:String,
+                    default:'取消'
+                }
+            },
+            template:`
+                <div>
+                    <button
+                    @click="okHandle">
+                    {{okValue}}
+                    </button>   
+                    <button>{{cancelValue}}</button>
+                </div>
+            `,
+            methods:{
+                okHandle(){
+                    this.$emit('ok'); //发布一个事件
+                }
+            }
+        })
+
+        new Vue({
+            el:'#app',
+            data:{
+                isLogin:false,
+                // isLogin123: true
+            },
+            methods:{
+                parentOk(){
+                    this.isLogin = !this.isLogin  //收到组件变化后 做出的改变
+                }
+            }
+        })
+    
+    
+    
+    </script>
+    
+</body>
+</html>
