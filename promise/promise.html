@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./src/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <button id="btn">请求数据</button>
+
+
+</body>
+<!-- address shop -->
+<script>
+
+    // $('#btn').click(function () {
+    //     $.ajax({
+    //         url: 'http://192.168.2.75:3001/user',
+    //         type: 'get',  //默认 get
+    //         success(data) {
+    //             // console.log(data)
+    //             $.ajax({
+    //                 url: 'http://192.168.2.75:3001/shop',
+    //                 type: 'get',
+    //                 success(data) {
+    //                     console.log(data)
+    //                 }
+    //             })
+    //         }
+    //     })
+    // })
+
+    function ajax1(){
+        return new Promise(function(resolve,reject){
+            $.ajax({
+                url:'http://192.168.2.75:3001/user',
+                success:function(data){
+                    resolve(data)
+                }
+            })
+        })
+    };
+    function ajax2(){
+        return new Promise(function(resolve,reject){
+            $.ajax({
+                url:'http://192.168.2.75:3001/adress',
+                type:'post',
+                success:function(data){
+                    resolve(data)
+                }
+            })
+        })
+    };
+    function ajax3(){
+        return new Promise(function(resolve,reject){
+            $.ajax({
+                url:'http://192.168.2.75:3001/shop',
+                success:function(data){
+                    resolve(data)
+                }
+            })
+        })
+    };
+
+    ajax1().then(function(data){
+        console.log(data)
+        return ajax2()
+    })
+    .then(function(data){
+        console.log(data)
+        return ajax3()
+    })
+    .then(function(data){
+       console.log(data)
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+
+
+
+
+
+</script>
+
+</html>
